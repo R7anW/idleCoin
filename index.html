@@ -57,7 +57,6 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            transform: perspective(600px) rotateY(0deg);
             transition: transform 0.6s ease-in-out;
         }
 
@@ -174,9 +173,14 @@
             totalCash += earnings;
             updateGUI();
 
-            // Animate the coin
-            coinElement.style.transform = 'rotateY(360deg)';
-            setTimeout(() => (coinElement.style.transform = 'rotateY(0deg)'), 600);
+            // Animate the coin (single rotation)
+            coinElement.style.transition = 'transform 0.6s ease-in-out';
+            coinElement.style.transform = `rotateY(360deg)`;
+
+            setTimeout(() => {
+                coinElement.style.transition = 'none';
+                coinElement.style.transform = 'rotateY(0deg)';
+            }, 600);
 
             // Start cooldown
             loadingBar.style.transition = 'transform 3s linear';
