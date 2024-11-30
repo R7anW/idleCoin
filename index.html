@@ -191,7 +191,7 @@
                 }
                 else {
                     // Reset earnings to null to ensure it updates on the next flip
-                    coin.lastLandedValue = null;
+                    coin.lastLandedValue = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Generate new random number
                 }
             });
 
@@ -203,6 +203,9 @@
 
             // Add earnings to total cash
             totalCash += earningsThisFlip;
+
+            // Immediately update the display for landed value
+            updateGUI();
 
             // Start cooldown
             const loadingBar = document.getElementById('loading-bar');
@@ -216,7 +219,6 @@
                 loadingBar.style.transform = 'scaleX(0)';
                 flipButton.disabled = false;
                 canFlip = true;
-                updateGUI(); // Update the GUI after cooldown
             }, 3000);
         }
 
