@@ -126,6 +126,11 @@
             background: #5a6268;
         }
 
+        /* Coin Flip Animation */
+        .flip {
+            transform: rotateY(3600deg);
+        }
+
     </style>
 </head>
 <body>
@@ -180,11 +185,10 @@
 
             canFlip = false;
 
-            // Apply flip animation to all coins
+            // Apply flip animation to all coins by adding the "flip" class
             const coinDivs = document.querySelectorAll('.coin');
             coinDivs.forEach((coinDiv) => {
-                // Apply a single flip effect to all coins
-                coinDiv.style.transform = 'rotateY(3600deg)';
+                coinDiv.classList.add('flip');
             });
 
             // Calculate total earnings from all coins
@@ -211,6 +215,7 @@
 
                 // Reset the coin's flip state for the next flip
                 coinDivs.forEach((coinDiv) => {
+                    coinDiv.classList.remove('flip');  // Remove the flip class to reset the coin
                     coinDiv.style.transition = 'none';  // Remove transition to allow for reset
                     coinDiv.style.transform = 'rotateY(0deg)';  // Reset the rotation
                 });
