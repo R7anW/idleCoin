@@ -61,9 +61,7 @@
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             margin: 0 auto;
-            animation-name: coinflip;
-            animation-duration: 1s;
-            animation-delay: 0.5s;
+            animation: coinflip 1s;
         }
 
         @keyframes coinflip {
@@ -72,7 +70,7 @@
         }
         to {
             transform: rotateY(360deg);
-        }
+            }
         }
 
         .coin-text {
