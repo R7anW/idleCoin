@@ -62,7 +62,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             margin: 0 auto;
             transform-style: preserve-3d; /* Enable 3D transformations */
-            perspective: 1000px;
+            transition: transform 1s ease-in-out; /* Smooth rotation */
         }
 
         .coin-text {
@@ -184,8 +184,7 @@
             const coinDivs = document.querySelectorAll('.coin');
             coinDivs.forEach((coinDiv) => {
                 // Apply flip effect (rotateY to simulate 3D flip)
-                coinDiv.style.transition = 'transform 1s ease-in-out';
-                coinDiv.style.transform = 'rotateY(1800deg)';
+                coinDiv.style.transform = 'rotateY(3600deg)';
             });
 
             // Calculate total earnings from all coins
