@@ -178,14 +178,15 @@
 
         // Initialize the coins with their respective ranges
         function initializeCoins() {
-            coins = coinRanges.map(range => {
-                return {
-                    range: `${range.min} - ${range.max}`,
-                    earnings: 0,
-                    rangeMin: range.min,
-                    rangeMax: range.max
-                };
+            // Add the first coin to the visible list
+            coins.push({
+                range: `${coinRanges[0].min} - ${coinRanges[0].max}`,
+                earnings: 0,
+                rangeMin: coinRanges[0].min,
+                rangeMax: coinRanges[0].max,
+                isVisible: true // First coin is always visible
             });
+
             updateGUI();
         }
 
@@ -197,36 +198,40 @@
             // Update coins
             coinsContainer.innerHTML = '';
             coins.forEach((coin, index) => {
-                const coinWrapper = document.createElement('div');
-                coinWrapper.className = 'coin-wrapper';
-                coinWrapper.id = `coin-${index + 1}`;
+                if (coin.isVisible) {
+                    const coinWrapper = document.createElement('div');
+                    coinWrapper.className = 'coin-wrapper';
+                    coinWrapper.id = `coin-${index + 1}`;
 
-                const coinStats = document.createElement('div');
-                coinStats.className = 'coin-stats';
-                coinStats.innerText = `Coin ${index + 1}: Range: ${coin.range}`;
+                    const coinStats = document.createElement('div');
+                    coinStats.className = 'coin-stats';
+                    coinStats.innerText = `Coin ${index + 1}: Range: ${coin.range}`;
 
-                const coinDiv = document.createElement('div');
-                coinDiv.className = 'coin';
-                coinDiv.innerHTML = `<div class="coin-text">${coin.range}</div>`;  // Show range initially
+                    const coinDiv = document.createElement('div');
+                    coinDiv.className = 'coin';
+                    coinDiv.innerHTML = `<div class="coin-text">${coin.earnings || coin.range}</div>`;  // Show value or range
 
-                coinWrapper.appendChild(coinStats);
-                coinWrapper.appendChild(coinDiv);
-                coinsContainer.appendChild(coinWrapper);
+                    coinWrapper.appendChild(coinStats);
+                    coinWrapper.appendChild(coinDiv);
+                    coinsContainer.appendChild(coinWrapper);
+                }
             });
         }
 
-        // Flip all coins
+        // Flip only visible coins
         function flipCoins() {
             if (!canFlip) return;
 
             canFlip = false;
 
-            // Calculate total earnings from all coins
+            // Calculate total earnings from all visible coins
             let earningsThisFlip = 0;
             coins.forEach(coin => {
-                const randomValue = Math.floor(Math.random() * (coin.rangeMax - coin.rangeMin + 1)) + coin.rangeMin;
-                coin.earnings = randomValue;
-                earningsThisFlip += randomValue;
+                if (coin.isVisible) {
+                    const randomValue = Math.floor(Math.random() * (coin.rangeMax - coin.rangeMin + 1)) + coin.rangeMin;
+                    coin.earnings = randomValue;
+                    earningsThisFlip += randomValue;
+                }
             });
 
             // Add earnings to total cash
@@ -240,17 +245,15 @@
             const flipButton = document.getElementById('flip-button');
             loadingBar.style.transition = 'transform 3s linear';
             loadingBar.style.transform = 'scaleX(1)';
-            flipButton.disabled = true;
 
             setTimeout(() => {
                 loadingBar.style.transition = 'none';
                 loadingBar.style.transform = 'scaleX(0)';
-                flipButton.disabled = false;
                 canFlip = true;
             }, 3000);
         }
 
-        // Add a new coin
+        // Add new coin when button is clicked
         function addCoin() {
             if (totalCash >= addCoinCost && coins.length < coinRanges.length) {
                 totalCash -= addCoinCost;
@@ -260,7 +263,8 @@
                     range: `${newCoin.min} - ${newCoin.max}`,
                     earnings: 0,
                     rangeMin: newCoin.min,
-                    rangeMax: newCoin.max
+                    rangeMax: newCoin.max,
+                    isVisible: true // New coin is unlocked and visible
                 });
 
                 // Update the "Add Coin" button cost
