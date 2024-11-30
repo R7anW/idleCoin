@@ -50,20 +50,24 @@
             color: #555;
         }
 
-      /* Coin Styles */
-.coin {
-    width: 80px;  /* Reduced size */
-    height: 80px; /* Reduced size */
-    border-radius: 50%;
-    background: radial-gradient(circle, #ffd700, #ffb700);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    margin: 0 auto;
-    transition: transform 1s ease-in-out; /* Smooth rotation */
-}
+        /* Coin Styles */
+        .coin {
+            width: 80px;  /* Reduced size */
+            height: 80px; /* Reduced size */
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffd700, #ffb700);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
+            transition: transform 1s ease-in-out; /* Smooth rotation */
+        }
 
+        /* Coin Flip Animation */
+        .coin.flip {
+            transform: rotateY(360deg);
+        }
 
         .coin-text {
             font-size: 1.2rem;
@@ -126,11 +130,6 @@
             background: #5a6268;
         }
 
-        /* Coin Flip Animation */
-        .flip {
-            transform: rotateY(360deg);
-        }
-
     </style>
 </head>
 <body>
@@ -188,6 +187,15 @@
             // Apply flip animation to all coins by adding the "flip" class
             const coinDivs = document.querySelectorAll('.coin');
             coinDivs.forEach((coinDiv) => {
+                // Reset transform property to allow the animation to trigger
+                coinDiv.style.transition = 'none';  // Disable transition temporarily
+                coinDiv.style.transform = 'rotateY(0deg)';  // Reset the rotation
+                
+                // Trigger a reflow/repaint to reset the state before starting animation
+                void coinDiv.offsetWidth;  // Forces reflow
+
+                // Now add the flip class to apply the animation
+                coinDiv.style.transition = 'transform 1s ease-in-out';  // Re-enable the transition
                 coinDiv.classList.add('flip');
             });
 
