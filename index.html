@@ -116,6 +116,11 @@
         .flip-button:active {
             transform: scale(0.95);
         }
+
+        .flip-button[disabled] {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -130,13 +135,14 @@
         </div>
         <button class="upgrade-button" id="upgrade-button" onclick="upgradeCoin()">Upgrade ($10.00)</button>
     </div>
-    <button class="flip-button" onclick="flipCoin()">Flip Coin</button>
+    <button class="flip-button" id="flip-button" onclick="flipCoin()">Flip Coin</button>
 
     <script>
         let totalCash = 0;
         let multiplier = 1;
         let earnings = 1;
         let upgradeCost = 10;
+        let canFlip = true;
 
         function updateGUI() {
             document.getElementById('total-cash').innerText = totalCash.toFixed(2);
@@ -146,6 +152,11 @@
         }
 
         function flipCoin() {
+            if (!canFlip) return;
+
+            canFlip = false; // Disable flipping
+            setTimeout(() => (canFlip = true), 3000); // Enable flipping after 3 seconds
+
             const coinElement = document.getElementById('coin');
             totalCash += earnings;
 
