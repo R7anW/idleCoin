@@ -139,7 +139,7 @@
 
     <script>
         let totalCash = 0;
-        let coins = [{ earnings: getRandomEarnings(1, 10), range: "1-10" }]; // Default coin with earnings between 1 and 10
+        let coins = [{ earnings: getRandomEarnings(1, 10), range: "1-10", displayedRange: "1-10" }]; // Default coin with range 1-10
         let addCoinCost = 50;
         let canFlip = true;
 
@@ -164,11 +164,11 @@
 
                 const coinRange = document.createElement('div');
                 coinRange.className = 'coin-range';
-                coinRange.innerText = `Range: ${coin.range}`;
+                coinRange.innerText = `Range: ${coin.displayedRange}`;
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
-                coinDiv.innerHTML = `<div class="coin-text">${coin.earnings}</div>`;  // Show earnings on the coin
+                coinDiv.innerHTML = `<div class="coin-text">${coin.earnings}</div>`;  // Show the coin's current earnings value
 
                 coinWrapper.appendChild(coinRange);
                 coinWrapper.appendChild(coinDiv);
@@ -181,6 +181,15 @@
             if (!canFlip) return;
 
             canFlip = false;
+
+            // Flip each coin
+            coins.forEach(coin => {
+                // Recalculate earnings based on the current range
+                coin.earnings = getRandomEarnings(parseInt(coin.range.split('-')[0]), parseInt(coin.range.split('-')[1]));
+
+                // Update the displayed range for the coin
+                coin.displayedRange = `${coin.range.split('-')[0]}-${coin.range.split('-')[1]}`;
+            });
 
             // Calculate total earnings from all coins
             let earningsThisFlip = 0;
@@ -221,7 +230,8 @@
                 // Generate a new coin with random earnings within a specified range
                 const newCoin = {
                     earnings: getRandomEarnings(1, 10), // New coin range is 1-10
-                    range: "1-10"  // Display the range for the coin
+                    range: "1-10",  // Display the range for the coin
+                    displayedRange: "1-10" // Initially display the range on the coin
                 };
 
                 // Add the new coin to the array
