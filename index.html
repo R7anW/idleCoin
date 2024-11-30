@@ -44,7 +44,7 @@
             margin-bottom: 20px;
         }
 
-        .coin-range {
+        .coin-stats {
             font-size: 1rem;
             margin-bottom: 10px;
             color: #555;
@@ -139,19 +139,56 @@
 
     <script>
         let totalCash = 0;
-        let coins = [{ earnings: null, range: "1-10", displayedRange: "1-10", lastLandedValue: null }]; // Default coin with range 1-10
+        let coins = [];  // Array to hold all coins
         let addCoinCost = 50;
         let canFlip = true;
 
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
 
-        // Helper function to generate a random number within a range
-        function getRandomEarnings(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+        // List of ranges for each coin
+        const coinRanges = [
+            { min: 1, max: 10 },
+            { min: 1, max: 30 },
+            { min: 1, max: 50 },
+            { min: 1, max: 100 },
+            { min: 1, max: 150 },
+            { min: 1, max: 250 },
+            { min: 1, max: 500 },
+            { min: 1, max: 1000 },
+            { min: 1, max: 1700 },
+            { min: 1, max: 2400 },
+            { min: 1, max: 3000 },
+            { min: 1, max: 5000 },
+            { min: 1, max: 8000 },
+            { min: 1, max: 15000 },
+            { min: 1, max: 25000 },
+            { min: 1, max: 50000 },
+            { min: 1, max: 100000 },
+            { min: 1, max: 200000 },
+            { min: 1, max: 400000 },
+            { min: 1, max: 800000 },
+            { min: 1, max: 1200000 },
+            { min: 1, max: 2000000 },
+            { min: 1, max: 4000000 },
+            { min: 1, max: 8000000 },
+            { min: 1, max: 10000000 }
+        ];
+
+        // Initialize the coins with their respective ranges
+        function initializeCoins() {
+            coins = coinRanges.map(range => {
+                return {
+                    range: `${range.min} - ${range.max}`,
+                    earnings: 0,
+                    rangeMin: range.min,
+                    rangeMax: range.max
+                };
+            });
+            updateGUI();
         }
 
-        // Update the GUI
+        // Update the GUI with coin stats
         function updateGUI() {
             // Update total cash
             totalCashDisplay.innerText = totalCash.toFixed(2);
@@ -162,16 +199,15 @@
                 const coinWrapper = document.createElement('div');
                 coinWrapper.className = 'coin-wrapper';
 
-                const coinRange = document.createElement('div');
-                coinRange.className = 'coin-range';
-                coinRange.innerText = `Range: ${coin.displayedRange}`;
+                const coinStats = document.createElement('div');
+                coinStats.className = 'coin-stats';
+                coinStats.innerText = `Coin ${index + 1}: Range: ${coin.range}`;
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
-                // If the coin has a landed value, display that, otherwise show the range until the flip
-                coinDiv.innerHTML = `<div class="coin-text">${coin.lastLandedValue !== null ? coin.lastLandedValue : coin.displayedRange}</div>`;
+                coinDiv.innerHTML = `<div class="coin-text">${coin.range}</div>`;  // Show range initially
 
-                coinWrapper.appendChild(coinRange);
+                coinWrapper.appendChild(coinStats);
                 coinWrapper.appendChild(coinDiv);
                 coinsContainer.appendChild(coinWrapper);
             });
@@ -183,29 +219,18 @@
 
             canFlip = false;
 
-            // Flip each coin and assign a landed value
-            coins.forEach(coin => {
-                if (coin.lastLandedValue === null) {
-                    const rangeParts = coin.range.split('-');
-                    coin.lastLandedValue = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Set a random value within the range
-                }
-                else {
-                    // Generate new random value within the coin's range
-                    const rangeParts = coin.range.split('-');
-                    coin.lastLandedValue = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Generate new random number
-                }
-            });
-
             // Calculate total earnings from all coins
             let earningsThisFlip = 0;
             coins.forEach(coin => {
-                earningsThisFlip += coin.lastLandedValue;
+                const randomValue = Math.floor(Math.random() * (coin.rangeMax - coin.rangeMin + 1)) + coin.rangeMin;
+                coin.earnings = randomValue;
+                earningsThisFlip += randomValue;
             });
 
             // Add earnings to total cash
             totalCash += earningsThisFlip;
 
-            // Immediately update the display for landed value
+            // Update coin displays with new earnings
             updateGUI();
 
             // Start cooldown
@@ -215,7 +240,6 @@
             loadingBar.style.transform = 'scaleX(1)';
             flipButton.disabled = true;
 
-            // Reset the cooldown after 3 seconds
             setTimeout(() => {
                 loadingBar.style.transition = 'none';
                 loadingBar.style.transform = 'scaleX(0)';
@@ -226,39 +250,34 @@
 
         // Add a new coin
         function addCoin() {
-            if (coins.length >= 25) {
-                alert('Maximum number of coins reached!');
-                return;
-            }
-
-            if (totalCash >= addCoinCost) {
+            if (totalCash >= addCoinCost && coins.length < 25) {
                 totalCash -= addCoinCost;
 
-                // Generate a new coin with random earnings within a specified range
-                const newCoin = {
-                    earnings: null, // Initially null, will be calculated after flip
-                    range: "1-10",  // Display the range for the coin
-                    displayedRange: "1-10", // Initially display the range on the coin
-                    lastLandedValue: null // Initially null
-                };
+                // Add a new coin with the next range
+                if (coins.length < coinRanges.length) {
+                    const newCoin = coinRanges[coins.length];
+                    coins.push({
+                        range: `${newCoin.min} - ${newCoin.max}`,
+                        earnings: 0,
+                        rangeMin: newCoin.min,
+                        rangeMax: newCoin.max
+                    });
 
-                // Add the new coin to the array
-                coins.push(newCoin);
+                    // Increase the cost for the next coin
+                    addCoinCost *= 2;
 
-                // Increase the cost for the next coin
-                addCoinCost *= 2;
+                    // Update button text
+                    document.getElementById('add-coin-button').innerText = `Add Coin (£${addCoinCost})`;
 
-                // Update the button text
-                document.getElementById('add-coin-button').innerText = `Add Coin (£${addCoinCost})`;
-
-                updateGUI();
+                    updateGUI();
+                }
             } else {
-                alert('Not enough cash to add a new coin!');
+                alert('Not enough cash to add a new coin or maximum coin limit reached!');
             }
         }
 
-        // Initialize the GUI
-        updateGUI();
+        // Initialize the game with coins
+        initializeCoins();
     </script>
 </body>
 </html>
