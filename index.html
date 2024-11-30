@@ -190,7 +190,8 @@
                     coin.lastLandedValue = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Set a random value within the range
                 }
                 else {
-                    // Reset earnings to null to ensure it updates on the next flip
+                    // Generate new random value within the coin's range
+                    const rangeParts = coin.range.split('-');
                     coin.lastLandedValue = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Generate new random number
                 }
             });
@@ -214,6 +215,7 @@
             loadingBar.style.transform = 'scaleX(1)';
             flipButton.disabled = true;
 
+            // Reset the cooldown after 3 seconds
             setTimeout(() => {
                 loadingBar.style.transition = 'none';
                 loadingBar.style.transform = 'scaleX(0)';
@@ -246,7 +248,7 @@
                 // Increase the cost for the next coin
                 addCoinCost *= 2;
 
-                // Update button text
+                // Update the button text
                 document.getElementById('add-coin-button').innerText = `Add Coin (£${addCoinCost})`;
 
                 updateGUI();
