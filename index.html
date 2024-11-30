@@ -44,7 +44,7 @@
             margin-bottom: 20px;
         }
 
-        .coin-stats {
+        .coin-range {
             font-size: 1rem;
             margin-bottom: 10px;
             color: #555;
@@ -61,16 +61,6 @@
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             margin: 0 auto;
-            animation: coinflip 1s;
-        }
-
-        @keyframes coinflip {
-           from {
-               transform: rotateX(0deg);
-        }
-        to {
-            transform: rotateX(360deg);
-            }
         }
 
         .coin-text {
@@ -133,7 +123,6 @@
         .add-coin-button:hover {
             background: #5a6268;
         }
-
     </style>
 </head>
 <body>
@@ -150,12 +139,17 @@
 
     <script>
         let totalCash = 0;
-        let coins = [{ earnings: 1, multiplier: 1 }]; // Default coin
+        let coins = [{ earnings: getRandomEarnings(1, 10), range: "1-10" }]; // Default coin with earnings between 1 and 10
         let addCoinCost = 50;
         let canFlip = true;
 
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
+
+        // Helper function to generate a random number within a range
+        function getRandomEarnings(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
         // Update the GUI
         function updateGUI() {
@@ -168,21 +162,21 @@
                 const coinWrapper = document.createElement('div');
                 coinWrapper.className = 'coin-wrapper';
 
-                const coinStats = document.createElement('div');
-                coinStats.className = 'coin-stats';
-                coinStats.innerText = `Coin ${index + 1}: Multiplier: ${coin.multiplier}x | Earnings: £${coin.earnings.toFixed(2)}/flip`;
+                const coinRange = document.createElement('div');
+                coinRange.className = 'coin-range';
+                coinRange.innerText = `Range: ${coin.range}`;
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
-                coinDiv.innerHTML = `<div class="coin-text">£1</div>`;
+                coinDiv.innerHTML = `<div class="coin-text">${coin.earnings}</div>`;  // Show earnings on the coin
 
-                coinWrapper.appendChild(coinStats);
+                coinWrapper.appendChild(coinRange);
                 coinWrapper.appendChild(coinDiv);
                 coinsContainer.appendChild(coinWrapper);
             });
         }
 
-        // Flip all coins without animation
+        // Flip all coins
         function flipCoins() {
             if (!canFlip) return;
 
@@ -216,14 +210,18 @@
 
         // Add a new coin
         function addCoin() {
+            if (coins.length >= 25) {
+                alert('Maximum number of coins reached!');
+                return;
+            }
+
             if (totalCash >= addCoinCost) {
                 totalCash -= addCoinCost;
 
-                // Calculate the new coin's properties
-                const lastCoin = coins[coins.length - 1];
+                // Generate a new coin with random earnings within a specified range
                 const newCoin = {
-                    earnings: lastCoin.earnings * 2,
-                    multiplier: lastCoin.multiplier * 2,
+                    earnings: getRandomEarnings(1, 10), // New coin range is 1-10
+                    range: "1-10"  // Display the range for the coin
                 };
 
                 // Add the new coin to the array
