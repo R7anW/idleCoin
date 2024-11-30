@@ -174,16 +174,16 @@
             });
         }
 
-        // Flip all coins
+        // Flip all coins (Single flip effect for all coins)
         function flipCoins() {
             if (!canFlip) return;
 
             canFlip = false;
 
-            // Apply flip animation to each coin
+            // Apply flip animation to all coins
             const coinDivs = document.querySelectorAll('.coin');
             coinDivs.forEach((coinDiv) => {
-                // Apply flip effect (rotateY to simulate 3D flip)
+                // Apply a single flip effect to all coins
                 coinDiv.style.transform = 'rotateY(3600deg)';
             });
 
