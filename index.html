@@ -52,8 +52,8 @@
 
         /* Coin Styles */
         .coin {
-            width: 80px;  /* Reduced size */
-            height: 80px; /* Reduced size */
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: radial-gradient(circle, #ffd700, #ffb700);
             display: flex;
@@ -64,7 +64,7 @@
         }
 
         .coin-text {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: white;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
@@ -146,14 +146,14 @@
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
 
-        // Updated ranges for each coin (halved)
+        // Original ranges for each coin
         const coinRanges = [
             { min: 1, max: 5 },
             { min: 1, max: 15 },
             { min: 1, max: 25 },
-            { min: 1, max: 50 },
+            { min: 1, max: 50},
             { min: 1, max: 75 },
-            { min: 1, max: 125 },
+            { min: 1, max: 175 },
             { min: 1, max: 250 },
             { min: 1, max: 500 },
             { min: 1, max: 850 },
