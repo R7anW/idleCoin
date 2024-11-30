@@ -186,9 +186,6 @@
             coins.forEach(coin => {
                 // Recalculate earnings based on the current range
                 coin.earnings = getRandomEarnings(parseInt(coin.range.split('-')[0]), parseInt(coin.range.split('-')[1]));
-
-                // Update the displayed range for the coin
-                coin.displayedRange = `${coin.range.split('-')[0]}-${coin.range.split('-')[1]}`;
             });
 
             // Calculate total earnings from all coins
