@@ -188,6 +188,10 @@
                     const rangeParts = coin.range.split('-');
                     coin.earnings = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Set a random value within the range
                 }
+                else {
+                    // Reset earnings to null to ensure it updates on the next flip
+                    coin.earnings = null;
+                }
             });
 
             // Calculate total earnings from all coins
@@ -211,9 +215,8 @@
                 loadingBar.style.transform = 'scaleX(0)';
                 flipButton.disabled = false;
                 canFlip = true;
+                updateGUI(); // Update the GUI after cooldown
             }, 3000);
-
-            updateGUI();
         }
 
         // Add a new coin
