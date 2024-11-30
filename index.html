@@ -61,8 +61,6 @@
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             margin: 0 auto;
-            transform-style: preserve-3d;
-            transition: transform 1s ease-in-out; /* Smooth rotation */
         }
 
         .coin-text {
@@ -174,17 +172,11 @@
             });
         }
 
-        // Flip all coins with animation
+        // Flip all coins without animation
         function flipCoins() {
             if (!canFlip) return;
 
             canFlip = false;
-
-            // Apply flip animation to all coins by adding the "flip" class
-            const coinDivs = document.querySelectorAll('.coin');
-            coinDivs.forEach((coinDiv) => {
-                coinDiv.style.transform = 'rotateY(1800deg)'; // Flip the coin 5 times (3600 degrees) for dramatic effect
-            });
 
             // Calculate total earnings from all coins
             let earningsThisFlip = 0;
@@ -207,12 +199,6 @@
                 loadingBar.style.transform = 'scaleX(0)';
                 flipButton.disabled = false;
                 canFlip = true;
-
-                // Reset the coin's flip state for the next flip
-                coinDivs.forEach((coinDiv) => {
-                    coinDiv.style.transition = 'none';  // Remove transition to allow for reset
-                    coinDiv.style.transform = 'rotateY(0deg)';  // Reset the rotation
-                });
             }, 3000);
 
             updateGUI();
