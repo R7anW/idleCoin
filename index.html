@@ -12,7 +12,6 @@
             background: linear-gradient(to bottom, #e0eafc, #cfdef3);
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
         }
 
         h1 {
@@ -46,7 +45,6 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
             animation: none;
         }
 
@@ -104,23 +102,6 @@
             transform: scale(0.95);
         }
 
-        /* Progress Bar */
-        .progress-bar {
-            margin-top: 10px;
-            width: 100%;
-            height: 10px;
-            background: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background: #28a745;
-            width: 0;
-            transition: width 0.1s linear;
-        }
-
         /* Animation for flipping coins */
         @keyframes flip {
             0% {
@@ -155,8 +136,8 @@
             coins.forEach((coin, index) => {
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
+                coinDiv.id = `coin-${index}`;
                 coinDiv.innerHTML = `<div class="coin-text">Coin ${index + 1}</div>`;
-                coinDiv.style.animation = 'none';
 
                 const stats = document.createElement('div');
                 stats.className = 'coin-stats';
@@ -172,18 +153,6 @@
 
                 coinDiv.appendChild(stats);
                 coinDiv.appendChild(upgradeButton);
-
-                // Add progress bar for auto-flip if enabled
-                if (coin.autoFlip) {
-                    const progressBar = document.createElement('div');
-                    progressBar.className = 'progress-bar';
-                    const progress = document.createElement('div');
-                    progress.className = 'progress';
-                    progressBar.appendChild(progress);
-                    coinDiv.appendChild(progressBar);
-
-                    autoFlip(progress, coin);
-                }
 
                 container.appendChild(coinDiv);
             });
@@ -204,7 +173,7 @@
                 totalCash += coin.earnings;
 
                 // Animate the coin flip
-                const coinElement = document.getElementsByClassName('coin')[index];
+                const coinElement = document.getElementById(`coin-${index}`);
                 coinElement.style.animation = 'flip 0.6s ease';
                 setTimeout(() => (coinElement.style.animation = 'none'), 600);
             });
@@ -228,19 +197,6 @@
             } else {
                 alert('Not enough cash to upgrade!');
             }
-        }
-
-        function autoFlip(progress, coin) {
-            let progressValue = 0;
-            const interval = setInterval(() => {
-                if (progressValue >= 100) {
-                    progressValue = 0;
-                    totalCash += coin.earnings;
-                    updateGUI();
-                }
-                progressValue += 2;
-                progress.style.width = progressValue + '%';
-            }, 100);
         }
 
         // Initialize GUI
