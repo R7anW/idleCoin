@@ -42,7 +42,6 @@
         .coin-wrapper {
             text-align: center;
             margin-bottom: 20px;
-            display: none; /* Coins are hidden initially */
         }
 
         .coin-stats {
@@ -184,7 +183,7 @@
                 earnings: 0,
                 rangeMin: coinRanges[0].min,
                 rangeMax: coinRanges[0].max,
-                isVisible: true // First coin is always visible
+                isVisible: true // First coin is always visible and unlocked
             });
 
             updateGUI();
