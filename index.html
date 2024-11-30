@@ -168,7 +168,8 @@
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
-                coinDiv.innerHTML = `<div class="coin-text">${coin.lastLandedValue === null ? coin.displayedRange : coin.lastLandedValue}</div>`;  // Show the last landed value until flipped again
+                // If the coin has a landed value, display that, otherwise show the range until the flip
+                coinDiv.innerHTML = `<div class="coin-text">${coin.lastLandedValue !== null ? coin.lastLandedValue : coin.displayedRange}</div>`;
 
                 coinWrapper.appendChild(coinRange);
                 coinWrapper.appendChild(coinDiv);
@@ -182,7 +183,7 @@
 
             canFlip = false;
 
-            // Flip each coin
+            // Flip each coin and assign a landed value
             coins.forEach(coin => {
                 if (coin.lastLandedValue === null) {
                     const rangeParts = coin.range.split('-');
