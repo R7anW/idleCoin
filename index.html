@@ -42,6 +42,7 @@
         .coin-wrapper {
             text-align: center;
             margin-bottom: 20px;
+            display: none; /* Coins are hidden initially */
         }
 
         .coin-stats {
@@ -198,6 +199,7 @@
             coins.forEach((coin, index) => {
                 const coinWrapper = document.createElement('div');
                 coinWrapper.className = 'coin-wrapper';
+                coinWrapper.id = `coin-${index + 1}`;
 
                 const coinStats = document.createElement('div');
                 coinStats.className = 'coin-stats';
@@ -250,33 +252,28 @@
 
         // Add a new coin
         function addCoin() {
-            if (totalCash >= addCoinCost && coins.length < 25) {
+            if (totalCash >= addCoinCost && coins.length < coinRanges.length) {
                 totalCash -= addCoinCost;
 
-                // Add a new coin with the next range
-                if (coins.length < coinRanges.length) {
-                    const newCoin = coinRanges[coins.length];
-                    coins.push({
-                        range: `${newCoin.min} - ${newCoin.max}`,
-                        earnings: 0,
-                        rangeMin: newCoin.min,
-                        rangeMax: newCoin.max
-                    });
+                const newCoin = coinRanges[coins.length];
+                coins.push({
+                    range: `${newCoin.min} - ${newCoin.max}`,
+                    earnings: 0,
+                    rangeMin: newCoin.min,
+                    rangeMax: newCoin.max
+                });
 
-                    // Increase the cost for the next coin
-                    addCoinCost *= 2;
+                // Update the "Add Coin" button cost
+                addCoinCost *= 2;
+                document.getElementById('add-coin-button').innerText = `Add Coin (£${addCoinCost})`;
 
-                    // Update button text
-                    document.getElementById('add-coin-button').innerText = `Add Coin (£${addCoinCost})`;
-
-                    updateGUI();
-                }
+                updateGUI();
             } else {
                 alert('Not enough cash to add a new coin or maximum coin limit reached!');
             }
         }
 
-        // Initialize the game with coins
+        // Initialize the game
         initializeCoins();
     </script>
 </body>
