@@ -61,12 +61,6 @@
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             margin: 0 auto;
-            transition: transform 1s ease-in-out; /* Smooth rotation */
-        }
-
-        /* Coin Flip Animation */
-        .coin.flip {
-            transform: rotateY(360deg);
         }
 
         .coin-text {
@@ -178,26 +172,11 @@
             });
         }
 
-        // Flip all coins (Single flip effect for all coins)
+        // Flip all coins (No animation)
         function flipCoins() {
             if (!canFlip) return;
 
             canFlip = false;
-
-            // Apply flip animation to all coins by adding the "flip" class
-            const coinDivs = document.querySelectorAll('.coin');
-            coinDivs.forEach((coinDiv) => {
-                // Reset transform property to allow the animation to trigger
-                coinDiv.style.transition = 'none';  // Disable transition temporarily
-                coinDiv.style.transform = 'rotateY(0deg)';  // Reset the rotation
-                
-                // Trigger a reflow/repaint to reset the state before starting animation
-                void coinDiv.offsetWidth;  // Forces reflow
-
-                // Now add the flip class to apply the animation
-                coinDiv.style.transition = 'transform 1s ease-in-out';  // Re-enable the transition
-                coinDiv.classList.add('flip');
-            });
 
             // Calculate total earnings from all coins
             let earningsThisFlip = 0;
@@ -220,13 +199,6 @@
                 loadingBar.style.transform = 'scaleX(0)';
                 flipButton.disabled = false;
                 canFlip = true;
-
-                // Reset the coin's flip state for the next flip
-                coinDivs.forEach((coinDiv) => {
-                    coinDiv.classList.remove('flip');  // Remove the flip class to reset the coin
-                    coinDiv.style.transition = 'none';  // Remove transition to allow for reset
-                    coinDiv.style.transform = 'rotateY(0deg)';  // Reset the rotation
-                });
             }, 3000);
 
             updateGUI();
