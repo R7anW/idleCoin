@@ -3,14 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idle Coin</title>
+    <title>Coin Flip Game</title>
     <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(120deg, #84fab0, #8fd3f4);
+            color: #333;
+        }
 
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Total Cash Display */
+        .cash-display {
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            padding: 15px 25px;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Coin Container */
+        .coin-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .coin {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffd700, #ffb700);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transform: perspective(600px) rotateY(0deg);
+            transition: transform 0.6s ease-in-out;
+            cursor: pointer;
+        }
+
+        .coin:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .coin-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Coin Stats */
+        .coin-stats {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .coin-stats span {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* Upgrade Button */
+        .upgrade-button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            color: white;
+            background: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .upgrade-button:hover {
+            background: #218838;
+        }
+
+        .upgrade-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Flip Button */
+        .flip-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .flip-button:hover {
+            background: #0056b3;
+        }
+
+        .flip-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            margin-top: 10px;
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: #28a745;
+            width: 0;
+            transition: width 0.1s linear;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .coin-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <script>
+    <h1>Coin Flip Game</h1>
+    <div class="cash-display">Total Cash: $<span id="total-cash">0</span></div>
+    <div class="coin-container" id="coin-container"></div>
+    <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
 
+    <script>
+        let totalCash = 0;
+        let cooldown = false;
+        const coins = [
+            { multiplier: 1, earnings: 1, cost: 10, autoFlip: false },
+        ];
+
+        function updateGUI() {
+            document.getElementById('total-cash').innerText = totalCash.toFixed(2);
+            const container = document.getElementById('coin-container');
+            container.innerHTML = ''; // Clear the container
+            coins.forEach((coin, index) => {
+                const coinDiv = document.createElement('div');
+                coinDiv.className = 'coin';
+                coinDiv.id = `coin-${index}`;
+                coinDiv.onclick = () => flipSingleCoin(index);
+
+                const coinText = document.createElement('div');
+                coinText.className = 'coin-text';
+                coinText.innerText = `Coin ${index + 1}`;
+                coinDiv.appendChild(coinText);
+
+                const stats = document.createElement('div');
+                stats.className = 'coin-stats';
+                stats.innerHTML = `
+                    <span>Multiplier: ${coin.multiplier.toFixed(1)}x</span><br>
+                    <span>Earnings: $${coin.earnings.toFixed(2)}/flip</span>
+                `;
+
+                const upgradeButton = document.createElement('button');
+                upgradeButton.className = 'upgrade-button';
+                upgradeButton.innerText = `Upgrade ($${coin.cost.toFixed(2)})`;
+                upgradeButton.onclick = (e) => {
+                    e.stopPropagation();
+                    upgradeCoin(index);
+                };
+
+                coinDiv.appendChild(stats);
+                coinDiv.appendChild(upgradeButton);
+
+                container.appendChild(coinDiv);
+
+                if (coin.autoFlip) {
+                    addProgressBar(coinDiv, coin);
+                }
+            });
+        }
+
+        function flipCoins() {
+            if (cooldown) return;
+            cooldown = true;
+            setTimeout(() => (cooldown = false), 2000);
+
+            coins.forEach((coin, index) => {
+                totalCash += coin.earnings;
+                const coinElement = document.getElementById(`coin-${index}`);
+                coinElement.style.transform = 'rotateY(360deg)';
+                setTimeout(() => (coinElement.style.transform = 'rotateY(0deg)'), 600);
+            });
+
+            updateGUI();
+        }
+
+        function upgradeCoin(index) {
+            const coin = coins[index];
+            if (totalCash >= coin.cost) {
+                totalCash -= coin.cost;
+                coin.multiplier *= 1.5;
+                coin.earnings *= 1.5;
+                coin.cost *= 2;
+
+                if (!coin.autoFlip) {
+                    coin.autoFlip = true;
+                }
+
+                updateGUI();
+            } else {
+                alert('Not enough cash to upgrade!');
+            }
+        }
+
+        function addProgressBar(coinDiv, coin) {
+            const progressBar = document.createElement('div');
+            progressBar.className = 'progress-bar';
+            const progress = document.createElement('div');
+            progress.className = 'progress';
+            progressBar.appendChild(progress);
+            coinDiv.appendChild(progressBar);
+
+            let progressValue = 0;
+            setInterval(() => {
+                if (progressValue >= 100) {
+                    progressValue = 0;
+                    totalCash += coin.earnings;
+                    updateGUI();
+                }
+                progressValue += 2;
+                progress.style.width = progressValue + '%';
+            }, 100);
+        }
+
+        // Initialize the GUI
+        updateGUI();
     </script>
 </body>
 </html>
