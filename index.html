@@ -60,7 +60,7 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            transition: transform 0.6s ease-in-out;  /* Smooth transition for flipping */
+            transition: transform 1s ease-in-out;  /* Smooth transition for flipping */
             transform-style: preserve-3d; /* Enable 3D transformations */
             margin: 0 auto;
         }
@@ -130,19 +130,6 @@
             background: #5a6268;
         }
 
-        /* Flip Animation */
-        @keyframes flip {
-            0% {
-                transform: rotateY(0deg);
-            }
-            50% {
-                transform: rotateY(180deg);
-            }
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -197,10 +184,12 @@
 
             canFlip = false;
 
-            // Apply flip animation
+            // Apply flip animation to each coin
             const coinDivs = document.querySelectorAll('.coin');
             coinDivs.forEach((coinDiv) => {
-                coinDiv.style.animation = 'flip 1s ease-in-out';
+                // Add the flip class which triggers the 3D rotation
+                coinDiv.style.transition = 'transform 1s ease-in-out';
+                coinDiv.style.transform = 'rotateY(360deg)';
             });
 
             // Calculate total earnings from all coins
@@ -224,9 +213,11 @@
                 loadingBar.style.transform = 'scaleX(0)';
                 flipButton.disabled = false;
                 canFlip = true;
-                // Reset animation after the flip
-                coinDivs.forEach(coinDiv => {
-                    coinDiv.style.animation = '';
+
+                // Reset the coin's flip state for the next flip
+                coinDivs.forEach((coinDiv) => {
+                    coinDiv.style.transition = 'none';  // Remove transition to allow for reset
+                    coinDiv.style.transform = 'rotateY(0deg)';  // Reset the rotation
                 });
             }, 3000);
 
