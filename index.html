@@ -139,7 +139,7 @@
 
     <script>
         let totalCash = 0;
-        let coins = [{ earnings: null, range: "1-10", displayedRange: "1-10" }]; // Default coin with range 1-10
+        let coins = [{ earnings: null, range: "1-10", displayedRange: "1-10", lastLandedValue: null }]; // Default coin with range 1-10
         let addCoinCost = 50;
         let canFlip = true;
 
@@ -168,7 +168,7 @@
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
-                coinDiv.innerHTML = `<div class="coin-text">${coin.earnings === null ? coin.displayedRange : coin.earnings}</div>`;  // Show the range initially or earnings after flip
+                coinDiv.innerHTML = `<div class="coin-text">${coin.lastLandedValue === null ? coin.displayedRange : coin.lastLandedValue}</div>`;  // Show the last landed value until flipped again
 
                 coinWrapper.appendChild(coinRange);
                 coinWrapper.appendChild(coinDiv);
@@ -184,20 +184,20 @@
 
             // Flip each coin
             coins.forEach(coin => {
-                if (coin.earnings === null) {
+                if (coin.lastLandedValue === null) {
                     const rangeParts = coin.range.split('-');
-                    coin.earnings = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Set a random value within the range
+                    coin.lastLandedValue = getRandomEarnings(parseInt(rangeParts[0]), parseInt(rangeParts[1])); // Set a random value within the range
                 }
                 else {
                     // Reset earnings to null to ensure it updates on the next flip
-                    coin.earnings = null;
+                    coin.lastLandedValue = null;
                 }
             });
 
             // Calculate total earnings from all coins
             let earningsThisFlip = 0;
             coins.forEach(coin => {
-                earningsThisFlip += coin.earnings;
+                earningsThisFlip += coin.lastLandedValue;
             });
 
             // Add earnings to total cash
@@ -233,7 +233,8 @@
                 const newCoin = {
                     earnings: null, // Initially null, will be calculated after flip
                     range: "1-10",  // Display the range for the coin
-                    displayedRange: "1-10" // Initially display the range on the coin
+                    displayedRange: "1-10", // Initially display the range on the coin
+                    lastLandedValue: null // Initially null
                 };
 
                 // Add the new coin to the array
