@@ -59,7 +59,6 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             transform: perspective(600px) rotateY(0deg);
             transition: transform 0.6s ease-in-out;
-            cursor: pointer;
         }
 
         .coin:hover {
@@ -97,6 +96,7 @@
 
         /* Flip Button */
         .flip-button {
+            position: relative;
             margin-top: 30px;
             padding: 15px 30px;
             font-size: 1.2rem;
@@ -106,7 +106,7 @@
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s ease, transform 0.2s ease;
+            overflow: hidden;
         }
 
         .flip-button:hover {
@@ -117,9 +117,17 @@
             transform: scale(0.95);
         }
 
-        .flip-button[disabled] {
-            background: #6c757d;
-            cursor: not-allowed;
+        /* Cooldown Loading Bar */
+        .loading-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.6));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 3s linear;
         }
     </style>
 </head>
@@ -130,12 +138,15 @@
         <div class="coin-stats" id="coin-stats">
             Multiplier: <span id="coin-multiplier">1.0x</span> | Earnings: $<span id="coin-earnings">1.00</span>/flip
         </div>
-        <div class="coin" id="coin" onclick="flipCoin()">
+        <div class="coin" id="coin">
             <div class="coin-text">Flip Me</div>
         </div>
         <button class="upgrade-button" id="upgrade-button" onclick="upgradeCoin()">Upgrade ($10.00)</button>
     </div>
-    <button class="flip-button" id="flip-button" onclick="flipCoin()">Flip Coin</button>
+    <button class="flip-button" id="flip-button" onclick="flipCoin()" disabled>
+        Flip Coin
+        <div class="loading-bar" id="loading-bar"></div>
+    </button>
 
     <script>
         let totalCash = 0;
@@ -155,16 +166,26 @@
             if (!canFlip) return;
 
             canFlip = false; // Disable flipping
-            setTimeout(() => (canFlip = true), 3000); // Enable flipping after 3 seconds
-
             const coinElement = document.getElementById('coin');
+            const flipButton = document.getElementById('flip-button');
+            const loadingBar = document.getElementById('loading-bar');
+
+            // Update total cash
             totalCash += earnings;
+            updateGUI();
 
             // Animate the coin
             coinElement.style.transform = 'rotateY(360deg)';
             setTimeout(() => (coinElement.style.transform = 'rotateY(0deg)'), 600);
 
-            updateGUI();
+            // Start cooldown
+            loadingBar.style.transform = 'scaleX(1)';
+            flipButton.disabled = true;
+            setTimeout(() => {
+                loadingBar.style.transform = 'scaleX(0)';
+                canFlip = true;
+                flipButton.disabled = false;
+            }, 3000);
         }
 
         function upgradeCoin() {
