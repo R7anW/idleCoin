@@ -14,6 +14,7 @@
             background-size: 100% 200%;
             color: #333;
             text-align: center;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         h1 {
@@ -44,6 +45,7 @@
             align-items: center;
             gap: 20px;
             padding: 20px;
+            margin-bottom: 60px; /* To ensure the scrollable area */
         }
 
         .coin-wrapper {
@@ -66,6 +68,7 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
         }
 
         .coin-text {
@@ -167,7 +170,7 @@
         ];
 
         function initializeCoins() {
-            coins.push({ range: `${coinRanges[0].min} - ${coinRanges[0].max}`, isVisible: true });
+            coins.push({ range: `${coinRanges[0].min} - ${coinRanges[0].max}`, earnings: 0, isVisible: true });
             updateGUI();
         }
 
@@ -183,7 +186,7 @@
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
-                coinDiv.innerHTML = `<div class="coin-text">${coin.range}</div>`;
+                coinDiv.innerHTML = `<div class="coin-text">${coin.earnings || coin.range}</div>`; // Show earnings or range
 
                 coinWrapper.appendChild(coinStats);
                 coinWrapper.appendChild(coinDiv);
@@ -207,9 +210,10 @@
 
             coins.forEach(coin => {
                 const [min, max] = coin.range.split(' - ').map(Number);
-                totalCash += Math.floor(Math.random() * (max - min + 1)) + min;
+                coin.earnings = Math.floor(Math.random() * (max - min + 1)) + min;
             });
 
+            totalCash = coins.reduce((acc, coin) => acc + coin.earnings, 0);
             updateGUI();
 
             const loadingBar = document.getElementById('loading-bar');
@@ -227,7 +231,7 @@
                 totalCash -= addCoinCost;
 
                 const newRange = coinRanges[coins.length];
-                coins.push({ range: `${newRange.min} - ${newRange.max}`, isVisible: true });
+                coins.push({ range: `${newRange.min} - ${newRange.max}`, earnings: 0, isVisible: true });
 
                 addCoinCost *= 2;
                 addCoinButton.innerText = `Add Coin (£${addCoinCost})`;
