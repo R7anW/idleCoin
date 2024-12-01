@@ -153,6 +153,7 @@
 
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
+        const addCoinButton = document.getElementById('add-coin-button');
 
         // Coin ranges
         const coinRanges = [
@@ -215,6 +216,14 @@
                     coinsContainer.appendChild(coinWrapper);
                 }
             });
+
+            // Position the add coin button under the last coin
+            const lastCoinWrapper = document.querySelector('.coin-wrapper:last-child');
+            if (lastCoinWrapper) {
+                const rect = lastCoinWrapper.getBoundingClientRect();
+                addCoinButton.style.position = 'absolute';
+                addCoinButton.style.top = `${window.scrollY + rect.bottom + 20}px`;
+            }
         }
 
         function flipCoins() {
@@ -239,9 +248,9 @@
             loadingBar.style.transform = 'scaleX(1)';
 
             setTimeout(() => {
-                loadingBar.style.transition = 'none';
-                loadingBar.style.transform = 'scaleX(0)';
                 canFlip = true;
+                loadingBar.style.transition = '';
+                loadingBar.style.transform = 'scaleX(0)';
             }, 3000);
         }
 
