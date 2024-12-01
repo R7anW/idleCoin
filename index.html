@@ -276,6 +276,13 @@
             }
         }
 
+        // Listen for the space bar press (key code 32)
+        window.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                flipCoins();
+            }
+        });
+
         // Initialize the game
         initializeCoins();
     </script>
