@@ -10,18 +10,19 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(120deg, #84fab0, #8fd3f4);
+            background: linear-gradient(120deg, #84fab0, #8fd3f4, #84fab0);
+            background-size: 100% 200%;
+            min-height: 100vh;
             color: #333;
             text-align: center;
-            min-height: 100vh;
-            background-attachment: fixed; /* Ensure gradient extends infinitely */
+            overflow-x: hidden;
         }
 
         h1 {
             font-size: 2.5rem;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         /* Total Cash Display */
@@ -33,27 +34,15 @@
             font-size: 1.5rem;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
-        /* Coin and Stats Container */
+        /* Coins Container */
         #coins-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            padding-bottom: 100px; /* Space for fixed Flip Coins button
-
-
-        /* Coin and Stats Container */
-        #coins-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            padding-bottom: 100px; /* Space for fixed Flip Coins button */
+            padding-bottom: 150px; /* Space for fixed Flip Coins button */
         }
 
         .coin-wrapper {
@@ -165,7 +154,7 @@
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
 
-        // List of ranges for each coin
+        // Coin ranges
         const coinRanges = [
             { min: 1, max: 5 },
             { min: 1, max: 15 },
@@ -194,23 +183,19 @@
             { min: 1, max: 10000000 }
         ];
 
-        // Initialize the coins with their respective ranges
         function initializeCoins() {
             coins.push({
                 range: `${coinRanges[0].min} - ${coinRanges[0].max}`,
                 earnings: 0,
                 rangeMin: coinRanges[0].min,
                 rangeMax: coinRanges[0].max,
-                isVisible: true // First coin is always visible and unlocked
+                isVisible: true
             });
-
             updateGUI();
         }
 
-        // Update the GUI with coin stats
         function updateGUI() {
             totalCashDisplay.innerText = totalCash.toFixed(2);
-
             coinsContainer.innerHTML = '';
             coins.forEach((coin, index) => {
                 if (coin.isVisible) {
@@ -260,7 +245,6 @@
             }, 3000);
         }
 
-        // Add Coin
         function addCoin() {
             if (totalCash >= addCoinCost && coins.length < coinRanges.length) {
                 totalCash -= addCoinCost;
@@ -287,9 +271,9 @@
             if (e.code === 'Space') {
                 e.preventDefault();
                 const flipButton = document.getElementById('flip-button');
-                flipButton.classList.add('flip-button:active');
+                flipButton.classList.add('active');
                 flipCoins();
-                setTimeout(() => flipButton.classList.remove('flip-button:active'), 100);
+                setTimeout(() => flipButton.classList.remove('active'), 100);
             }
         });
 
