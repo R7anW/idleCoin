@@ -91,7 +91,7 @@
         }
 
         .flip-button:active {
-            transform: scale(0.95);
+            transform: scale(0.95);  /* Simulate button press */
         }
 
         /* Cooldown Loading Bar */
@@ -238,10 +238,9 @@
             // Add earnings to total cash
             totalCash += earningsThisFlip;
 
-            // Update coin displays with new earnings
             updateGUI();
 
-            // Start cooldown
+            // Simulate cooldown
             const loadingBar = document.getElementById('loading-bar');
             loadingBar.style.transition = 'transform 3s linear';
             loadingBar.style.transform = 'scaleX(1)';
