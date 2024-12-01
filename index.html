@@ -147,7 +147,48 @@
     <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
 
     <script>
-        // ... (Full JavaScript is the same, except for the updated `updateGUI` function above.)
+        let totalCash = 0;
+        let coins = [];
+        let addCoinCost = 50;
+        const coinsContainer = document.getElementById('coins-container');
+        const addCoinButton = document.getElementById('add-coin-button');
+
+        function updateGUI() {
+            coinsContainer.innerHTML = '';
+            coins.forEach((coin, index) => {
+                if (coin.isVisible) {
+                    const coinWrapper = document.createElement('div');
+                    coinWrapper.className = 'coin-wrapper';
+
+                    const coinStats = document.createElement('div');
+                    coinStats.className = 'coin-stats';
+                    coinStats.innerText = `Coin ${index + 1}: Range: ${coin.range}`;
+
+                    const coinDiv = document.createElement('div');
+                    coinDiv.className = 'coin';
+                    coinDiv.innerHTML = `<div class="coin-text">${coin.range}</div>`;
+
+                    coinWrapper.appendChild(coinStats);
+                    coinWrapper.appendChild(coinDiv);
+                    coinsContainer.appendChild(coinWrapper);
+                }
+            });
+
+            // Position Add Coin Button
+            const lastCoinWrapper = document.querySelector('.coin-wrapper:last-child');
+            if (lastCoinWrapper) {
+                const rect = lastCoinWrapper.getBoundingClientRect();
+                addCoinButton.style.top = `${window.scrollY + rect.bottom + 20}px`;
+                addCoinButton.style.left = `${rect.left + rect.width / 2 - addCoinButton.offsetWidth / 2}px`;
+            }
+        }
+
+        function initializeCoins() {
+            coins.push({ range: '1 - 5', isVisible: true });
+            updateGUI();
+        }
+
+        initializeCoins();
     </script>
 </body>
 </html>
