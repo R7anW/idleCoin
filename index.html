@@ -150,8 +150,11 @@
         let totalCash = 0;
         let coins = [];
         let addCoinCost = 50;
+        let canFlip = true;
+
         const coinsContainer = document.getElementById('coins-container');
         const addCoinButton = document.getElementById('add-coin-button');
+        const totalCashDisplay = document.getElementById('total-cash');
 
         function updateGUI() {
             coinsContainer.innerHTML = '';
@@ -181,11 +184,53 @@
                 addCoinButton.style.top = `${window.scrollY + rect.bottom + 20}px`;
                 addCoinButton.style.left = `${rect.left + rect.width / 2 - addCoinButton.offsetWidth / 2}px`;
             }
+
+            totalCashDisplay.innerText = totalCash.toFixed(2);
         }
 
         function initializeCoins() {
             coins.push({ range: '1 - 5', isVisible: true });
             updateGUI();
+        }
+
+        function flipCoins() {
+            if (!canFlip) return;
+            canFlip = false;
+
+            let earnings = 0;
+            coins.forEach(coin => {
+                if (coin.isVisible) {
+                    const [min, max] = coin.range.split(' - ').map(Number);
+                    earnings += Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+            });
+
+            totalCash += earnings;
+
+            // Cooldown Animation
+            const loadingBar = document.getElementById('loading-bar');
+            loadingBar.style.transition = 'transform 3s linear';
+            loadingBar.style.transform = 'scaleX(1)';
+            setTimeout(() => {
+                loadingBar.style.transition = 'none';
+                loadingBar.style.transform = 'scaleX(0)';
+                canFlip = true;
+            }, 3000);
+
+            updateGUI();
+        }
+
+        function addCoin() {
+            if (totalCash >= addCoinCost && coins.length < 25) {
+                totalCash -= addCoinCost;
+                const newRange = `${coins.length * 10 + 1} - ${(coins.length + 1) * 10}`;
+                coins.push({ range: newRange, isVisible: true });
+                addCoinCost *= 2;
+                addCoinButton.innerText = `Add Coin (£${addCoinCost})`;
+                updateGUI();
+            } else {
+                alert('Not enough cash or max coins reached!');
+            }
         }
 
         initializeCoins();
