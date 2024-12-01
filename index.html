@@ -52,8 +52,8 @@
 
         /* Coin Styles */
         .coin {
-            width: 100px;
-            height: 100px;
+            width: 80px;  /* Reduced size */
+            height: 80px; /* Reduced size */
             border-radius: 50%;
             background: radial-gradient(circle, #ffd700, #ffb700);
             display: flex;
@@ -64,7 +64,7 @@
         }
 
         .coin-text {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: bold;
             color: white;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
@@ -146,23 +146,23 @@
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
 
-        // Original ranges for each coin
+        // List of ranges for each coin
         const coinRanges = [
             { min: 1, max: 5 },
             { min: 1, max: 15 },
             { min: 1, max: 25 },
-            { min: 1, max: 50},
+            { min: 1, max: 50 },
             { min: 1, max: 75 },
-            { min: 1, max: 175 },
+            { min: 1, max: 125 },
             { min: 1, max: 250 },
             { min: 1, max: 500 },
             { min: 1, max: 850 },
             { min: 1, max: 1200 },
-            { min: 1, max: 1500 },
-            { min: 1, max: 2500 },
-            { min: 1, max: 4000 },
-            { min: 1, max: 7500 },
-            { min: 1, max: 12500 },
+            { min: 1, max: 1800 },
+            { min: 1, max: 2600 },
+            { min: 1, max: 3400 },
+            { min: 1, max: 6000 },
+            { min: 1, max: 12000 },
             { min: 1, max: 25000 },
             { min: 1, max: 50000 },
             { min: 1, max: 100000 },
@@ -172,7 +172,7 @@
             { min: 1, max: 1000000 },
             { min: 1, max: 2000000 },
             { min: 1, max: 4000000 },
-            { min: 1, max: 5000000 }
+            { min: 1, max: 10000000 }
         ];
 
         // Initialize the coins with their respective ranges
@@ -208,7 +208,7 @@
 
                     const coinDiv = document.createElement('div');
                     coinDiv.className = 'coin';
-                    coinDiv.innerHTML = `<div class="coin-text">${coin.earnings || coin.range}</div>`;
+                    coinDiv.innerHTML = `<div class="coin-text">${coin.earnings || coin.range}</div>`;  // Show value or range
 
                     coinWrapper.appendChild(coinStats);
                     coinWrapper.appendChild(coinDiv);
@@ -217,26 +217,36 @@
             });
         }
 
-        // Function to simulate the coin flip
+        // Flip only visible coins
         function flipCoins() {
-            if (!canFlip) return; // Prevent flipping if the cooldown is active
+            if (!canFlip) return;
+
             canFlip = false;
 
-            // Simulate flip for all visible coins
-            coins.forEach((coin, index) => {
+            // Calculate total earnings from all visible coins
+            let earningsThisFlip = 0;
+            coins.forEach(coin => {
                 if (coin.isVisible) {
                     const randomValue = Math.floor(Math.random() * (coin.rangeMax - coin.rangeMin + 1)) + coin.rangeMin;
                     coin.earnings = randomValue;
+                    earningsThisFlip += randomValue;
                 }
             });
 
-            // Cooldown bar animation
+            // Add earnings to total cash
+            totalCash += earningsThisFlip;
+
+            // Update coin displays with new earnings
+            updateGUI();
+
+            // Start cooldown
             const loadingBar = document.getElementById('loading-bar');
+            const flipButton = document.getElementById('flip-button');
+            loadingBar.style.transition = 'transform 3s linear';
             loadingBar.style.transform = 'scaleX(1)';
 
-            // Reset cooldown after 3 seconds
             setTimeout(() => {
-                updateGUI();
+                loadingBar.style.transition = 'none';
                 loadingBar.style.transform = 'scaleX(0)';
                 canFlip = true;
             }, 3000);
