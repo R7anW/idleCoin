@@ -235,9 +235,7 @@
                 }
             });
 
-            // Add earnings to total cash
             totalCash += earningsThisFlip;
-
             updateGUI();
 
             // Simulate cooldown
@@ -286,6 +284,7 @@
         window.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
                 flipCoins();
+
                 // Trigger the same animation as button press when space bar is pressed
                 flipButton.classList.add('active');
                 setTimeout(() => {
