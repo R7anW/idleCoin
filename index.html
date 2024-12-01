@@ -83,6 +83,7 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            transition: background 0.2s ease, transform 0.1s ease;
         }
 
         .flip-button:hover {
@@ -145,6 +146,7 @@
 
         const coinsContainer = document.getElementById('coins-container');
         const totalCashDisplay = document.getElementById('total-cash');
+        const flipButton = document.getElementById('flip-button');
 
         // List of ranges for each coin
         const coinRanges = [
@@ -241,15 +243,20 @@
 
             // Start cooldown
             const loadingBar = document.getElementById('loading-bar');
-            const flipButton = document.getElementById('flip-button');
             loadingBar.style.transition = 'transform 3s linear';
             loadingBar.style.transform = 'scaleX(1)';
 
             setTimeout(() => {
+                canFlip = true;
                 loadingBar.style.transition = 'none';
                 loadingBar.style.transform = 'scaleX(0)';
-                canFlip = true;
             }, 3000);
+
+            // Animate flip button when pressed
+            flipButton.classList.add('active');
+            setTimeout(() => {
+                flipButton.classList.remove('active');
+            }, 100);
         }
 
         // Add new coin when button is clicked
@@ -280,6 +287,11 @@
         window.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
                 flipCoins();
+                // Trigger the same animation as button press when space bar is pressed
+                flipButton.classList.add('active');
+                setTimeout(() => {
+                    flipButton.classList.remove('active');
+                }, 100);
             }
         });
 
