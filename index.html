@@ -213,7 +213,11 @@
                 coin.earnings = Math.floor(Math.random() * (max - min + 1)) + min;
             });
 
-            totalCash = coins.reduce((acc, coin) => acc + coin.earnings, 0);
+            // Add each coin's earnings to totalCash
+            coins.forEach(coin => {
+                totalCash += coin.earnings;
+            });
+
             updateGUI();
 
             const loadingBar = document.getElementById('loading-bar');
