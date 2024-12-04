@@ -23,33 +23,33 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 3.125rem; /* 125% of previous size (2.5rem) */
             color: #fff;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         /* Total Cash Display */
         .cash-display {
             background: #333;
             color: #fff;
-            border-radius: 12px;
-            padding: 12px 25px;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
+            border-radius: 15px; /* Increased border-radius for scaling */
+            padding: 15px 30px; /* Increased padding */
+            font-size: 1.875rem; /* 125% of previous size (1.5rem) */
+            margin-bottom: 18px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
 
         /* Coins Container */
         #coins-container {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            padding: 12px;
+            gap: 37.5px; /* Increased gap for scaling */
+            padding: 15px;
             flex-wrap: wrap;
-            margin-bottom: 40px; /* Reduced margin for better fit with buttons */
+            margin-bottom: 50px; /* Increased margin for scaling */
             flex-grow: 1; /* Allow this container to grow and fill available space */
-            overflow-y: auto; /* Prevent overflow of coins container */
+            overflow-y: auto;
         }
 
         /* Coin Stats Box */
@@ -57,52 +57,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 15px; /* Increased gap for scaling */
         }
 
         .coin-stats {
             background: #444;
             border: 2px solid #555;
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: 15px; /* Increased border-radius for scaling */
+            padding: 15px;
             width: auto;
             text-align: center;
             color: #bbb;
-            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.6);
-            font-size: 1.25rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+            font-size: 1.25rem; /* 125% of previous size (1rem) */
         }
 
         /* Coin Styles */
         .coin {
-            width: 80px;
-            height: 80px;
+            width: 100px; /* Increased size */
+            height: 100px; /* Increased size */
             border-radius: 50%;
-            border: 5px solid orange;
+            border: 6px solid orange; /* Increased border */
             background: radial-gradient(circle, #ffeb99, #ffd700);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 12px auto;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+            margin: 15px auto;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
         }
 
         .coin-text {
-            font-size: 1.2rem;
+            font-size: 1.5rem; /* Increased font size */
             font-weight: bold;
             color: black;
-            -webkit-text-stroke: 1px #949494;
+            -webkit-text-stroke: 1.25px #949494; /* Slightly increased text stroke */
         }
 
         /* Flip Button and Add Coin Button */
         .flip-button, .add-coin-button {
-            padding: 12px 24px;
-            font-size: 1.25rem;
+            padding: 15px 30px; /* Increased padding */
+            font-size: 1.5rem; /* 125% of previous size (1.25rem) */
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px; /* Increased border-radius */
             cursor: pointer;
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
-            margin-top: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            margin-top: 18px; /* Increased margin for scaling */
         }
 
         /* Flip Button */
@@ -133,7 +133,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-bottom: 30px; /* Adjusted spacing from the bottom */
+            margin-bottom: 40px; /* Increased spacing from the bottom */
         }
 
     </style>
