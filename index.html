@@ -18,32 +18,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            zoom: 3; /* Increase everything by 300% */
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 7.5rem; /* 300% of original 2.5rem */
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-            margin-bottom: 20px;
+            text-shadow: 6px 6px 12px rgba(0, 0, 0, 0.4);
+            margin-bottom: 60px; /* Increased space for readability */
         }
 
         /* Total Cash Display */
         .cash-display {
             background: #333;
             color: #fff;
-            border-radius: 10px;
-            padding: 15px 25px;
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 30px;
+            padding: 45px 75px;
+            font-size: 4.5rem; /* 300% of original 1.5rem */
+            margin-bottom: 90px; /* Increased margin for spacing */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
 
         /* Coins Container */
         #coins-container {
             display: flex;
             justify-content: center;
-            gap: 40px; /* Adjust spacing between coins */
-            padding: 10px;
+            gap: 120px; /* Increased gap between coins */
+            padding: 30px;
             flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
         }
 
@@ -52,53 +53,53 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 30px; /* Increased gap for better spacing */
         }
 
         .coin-stats {
             background: #444;
-            border: 2px solid #555;
-            border-radius: 10px;
-            padding: 10px;
+            border: 6px solid #555; /* Increased border width */
+            border-radius: 30px;
+            padding: 30px;
             width: auto;
             text-align: center;
             color: #bbb;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-            font-size: 1rem;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+            font-size: 3rem; /* 300% of original 1rem */
         }
 
         /* Coin Styles */
         .coin {
-            width: 80px;
-            height: 80px;
+            width: 240px; /* 300% of original 80px */
+            height: 240px; /* 300% of original 80px */
             border-radius: 50%;
-            border: 2px solid orange; /* Solid 2px border */
-            background: radial-gradient(circle, #ffeb99, #ffd700); /* Gradient from dark yellow to light yellow */
+            border: 6px solid orange; /* Increased border thickness */
+            background: radial-gradient(circle, #ffeb99, #ffd700);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px auto; /* Center the coin */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            margin: 30px auto; /* Increased margin for spacing */
+            box-shadow: 0 12px 45px rgba(0, 0, 0, 0.6);
         }
 
         .coin-text {
-            font-size: 1.2rem;
+            font-size: 3.6rem; /* 300% of original 1.2rem */
             font-weight: bold;
-            color: black; /* Text color */
-            -webkit-text-stroke: 1px #949494; /* Text stroke for modern browsers */
+            color: black;
+            -webkit-text-stroke: 3px #949494; /* Increased stroke width */
         }
 
         /* Flip Button */
         .flip-button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            margin-top: 60px; /* Increased margin */
+            padding: 45px 90px;
+            font-size: 3.6rem; /* 300% of original 1.2rem */
             color: white;
             background: #007bff;
             border: none;
-            border-radius: 8px;
+            border-radius: 24px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
 
         .flip-button:hover {
@@ -111,15 +112,15 @@
 
         /* Add Coin Button */
         .add-coin-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
+            margin-top: 60px; /* Increased margin */
+            padding: 30px 60px;
+            font-size: 3rem; /* 300% of original 1rem */
             color: white;
             background: #6c757d;
             border: none;
-            border-radius: 5px;
+            border-radius: 15px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
 
         .add-coin-button:hover {
