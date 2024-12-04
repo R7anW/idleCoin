@@ -81,14 +81,17 @@
         .coin {
             width: 104px;
             height: 104px;
-            border-radius: 65%;
+            border-radius: 50%; /* Maintain circular shape */
             border: 5.2px solid orange;
-            background: radial-gradient(circle, #ffeb99, #ffd700);
+            background-image: url('CoinPlate.png'); /* Image as background */
+            background-size: cover; /* Ensure the image covers the area */
+            background-position: center; /* Center the image */
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 13px auto;
             box-shadow: 0 5.2px 19.5px rgba(0, 0, 0, 0.6);
+            position: relative; /* Positioning for overlay text */
         }
 
         .coin-text {
@@ -96,12 +99,12 @@
             font-weight: bold;
             color: black;
             -webkit-text-stroke: 1.3px #949494;
+            position: absolute; /* Position the text on top */
         }
 
         /* Flip Button */
         .flip-button {
-            position: fixed;
-            bottom: 80px;
+            margin-top: 40px;
             padding: 19.5px 39px;
             font-size: 1.56rem;
             color: white;
@@ -110,7 +113,6 @@
             border-radius: 10.4px;
             cursor: pointer;
             box-shadow: 0 5.2px 13px rgba(0, 0, 0, 0.5);
-            z-index: 10;
         }
 
         .flip-button:hover {
@@ -123,8 +125,7 @@
 
         /* Add Coin Button */
         .add-coin-button {
-            position: fixed;
-            bottom: 20px;
+            margin-top: 20px;
             padding: 13px 26px;
             font-size: 1.3rem;
             color: white;
@@ -133,18 +134,10 @@
             border-radius: 6.5px;
             cursor: pointer;
             box-shadow: 0 5.2px 13px rgba(0, 0, 0, 0.5);
-            z-index: 10;
         }
 
         .add-coin-button:hover {
             background: #5a6268;
-        }
-
-        /* Ensure the body container doesn't clip the button's shadow */
-        .button-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 100px; /* Make room for the buttons */
         }
 
     </style>
@@ -156,10 +149,9 @@
         <!-- Coins will be dynamically created here -->
     </div>
 
-    <div class="button-container">
-        <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
-        <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
-    </div>
+    <!-- Buttons positioned back to the original place -->
+    <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
+    <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
 
     <script>
         let totalCash = 0;
