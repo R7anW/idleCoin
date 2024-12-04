@@ -47,7 +47,7 @@
             gap: 50px; /* Increased gap between coins */
             padding: 12.5px;
             flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
-            margin-bottom: 200px; /* Ensure space for buttons at the bottom */
+            margin-bottom: 150px; /* Ensure space for buttons at the bottom */
         }
 
         /* Coin Stats Box */
@@ -91,34 +91,22 @@
             -webkit-text-stroke: 1.25px #949494; /* Increased stroke width */
         }
 
-        /* Flip Button */
+        /* Flip Button and Add Coin Button */
         .flip-button, .add-coin-button {
             padding: 18.75px 37.5px;
             font-size: 1.5rem; /* 125% of original 1.2rem */
             color: white;
-            background: #007bff;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px; /* Original round shape */
             cursor: pointer;
             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
             z-index: 10; /* Ensure buttons are on top */
-            width: 60%; /* Make buttons 60% of the page width */
-            margin: 10px 0;
+            margin-top: 25px;
         }
 
-        /* Button Alignment */
+        /* Flip Button */
         .flip-button {
-            position: fixed;
-            bottom: 20px; /* Distance from the bottom */
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .add-coin-button {
-            position: fixed;
-            bottom: 90px; /* Position add-coin button above flip button */
-            left: 50%;
-            transform: translateX(-50%);
+            background: #007bff;
         }
 
         .flip-button:hover {
@@ -129,9 +117,25 @@
             transform: scale(0.95);
         }
 
-        .add-coin-button:hover {
+        /* Add Coin Button */
+        .add-coin-button {
             background: #5a6268;
         }
+
+        .add-coin-button:hover {
+            background: #454d55;
+        }
+
+        /* Button Centering */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: auto;
+            padding-bottom: 25px; /* Ensure space from the bottom */
+        }
+
     </style>
 </head>
 <body>
@@ -140,8 +144,11 @@
     <div id="coins-container">
         <!-- Coins will be dynamically created here -->
     </div>
-    <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
-    <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
+
+    <div class="button-container">
+        <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
+        <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
+    </div>
 
     <script>
         let totalCash = 0;
@@ -228,3 +235,4 @@
     </script>
 </body>
 </html>
+
