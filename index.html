@@ -17,10 +17,7 @@
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 100vh; /* Full viewport height */
-            overflow: hidden; /* Prevent scrolling */
         }
 
         h1 {
@@ -37,7 +34,7 @@
             border-radius: 10px;
             padding: 15px 25px;
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
@@ -45,15 +42,20 @@
         #coins-container {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 20px;
-            overflow-x: auto; /* Allow horizontal scrolling if coins overflow */
-            max-width: 90%;
             padding: 10px;
+            flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
         }
 
+        /* Light Box for Each Coin */
         .coin-wrapper {
+            background: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            width: 120px; /* Fixed width for consistent layout */
             text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .coin-stats {
@@ -71,6 +73,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin: 0 auto; /* Center coin within the box */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
 
@@ -104,7 +107,7 @@
 
         /* Add Coin Button */
         .add-coin-button {
-            margin-top: 10px;
+            margin-top: 20px;
             padding: 10px 20px;
             font-size: 1rem;
             color: white;
@@ -163,7 +166,7 @@
 
                 const coinStats = document.createElement('div');
                 coinStats.className = 'coin-stats';
-                coinStats.innerText = `Coin ${index + 1}: Range: ${coin.range}`;
+                coinStats.innerText = `Coin ${index + 1}: Range ${coin.range}`;
 
                 const coinDiv = document.createElement('div');
                 coinDiv.className = 'coin';
