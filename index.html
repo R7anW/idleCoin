@@ -129,9 +129,10 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             position: fixed;
-            top: 90px; /* Repositioned near the top */
+            top: 90px;
             left: 50%;
             transform: translateX(-50%);
+            z-index: 10; /* Ensures it stays visible above other elements */
         }
 
         .add-coin-button:hover {
