@@ -72,33 +72,13 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
+            border: 2px solid orange; /* Solid 2px border */
             background: radial-gradient(circle, #ffeb99, #ffd700); /* Gradient from dark yellow to light yellow */
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 10px auto; /* Center the coin */
-            position: relative;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-        }
-
-        .coin::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border-radius: 50%;
-            background-color: transparent;
-            box-shadow:
-                0 0 0 5px orange,     /* top spike */
-                6px -6px 0 5px orange, /* top-right spike */
-                10px 0 0 5px orange,   /* right spike */
-                6px 6px 0 5px orange,  /* bottom-right spike */
-                0 10px 0 5px orange,   /* bottom spike */
-                -6px 6px 0 5px orange, /* bottom-left spike */
-                -10px 0 0 5px orange,  /* left spike */
-                -6px -6px 0 5px orange;/* top-left spike */
         }
 
         .coin-text {
