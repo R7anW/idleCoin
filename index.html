@@ -42,10 +42,12 @@
         /* Coins Container */
         #coins-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            flex-wrap: nowrap;
             gap: 20px;
             padding: 20px;
+            overflow-x: auto; /* Allow horizontal scrolling if coins overflow */
             margin-bottom: 60px;
         }
 
@@ -69,7 +71,6 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            margin: 0 auto;
         }
 
         .coin-text {
@@ -128,7 +129,7 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             transition: background 0.3s ease, transform 0.2s ease;
-            position: absolute;
+            margin-top: 20px;
         }
 
         .add-coin-button:hover {
@@ -192,14 +193,6 @@
                 coinWrapper.appendChild(coinDiv);
                 coinsContainer.appendChild(coinWrapper);
             });
-
-            // Update Add Coin Button position
-            const lastCoin = coinsContainer.lastElementChild;
-            if (lastCoin) {
-                const rect = lastCoin.getBoundingClientRect();
-                addCoinButton.style.top = `${window.scrollY + rect.bottom + 20}px`;
-                addCoinButton.style.left = `${rect.left + rect.width / 2 - addCoinButton.offsetWidth / 2}px`;
-            }
 
             totalCashDisplay.innerText = totalCash.toFixed(2);
         }
