@@ -72,13 +72,28 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 4px solid orange; /* Orange border */
             background: radial-gradient(circle, #ffeb99, #ffd700); /* Gradient from dark yellow to light yellow */
             display: flex;
             justify-content: center;
             align-items: center;
             margin: 10px auto; /* Center the coin */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .coin::before {
+            content: '';
+            position: absolute;
+            top: -8px; /* Position to wrap around the coin */
+            left: -8px;
+            width: 96px; /* Width matches the coin plus border */
+            height: 96px;
+            background: orange;
+            clip-path: polygon(
+                50% 0%, 60% 30%, 100% 30%, 70% 50%, 80% 80%, 50% 60%, 20% 80%, 30% 50%, 0% 30%, 40% 30%
+            ); /* Spiked pattern */
+            border-radius: 50%; /* Ensures the spikes follow a circular shape */
+            z-index: -1; /* Places it behind the coin */
         }
 
         .coin-text {
@@ -87,7 +102,6 @@
             color: black; /* Text color */
             -webkit-text-stroke: 1px #949494; /* Text stroke for modern browsers */
         }
-
 
         /* Flip Button */
         .flip-button {
@@ -201,9 +215,7 @@
 
             updateGUI();
 
-            setTimeout(() => (canFlip = true), 3000);
-        }
-
+            setTimeout(() => (canFlip = true), 3000
         function addCoin() {
             if (totalCash >= addCoinCost && coins.length < coinRanges.length) {
                 totalCash -= addCoinCost;
