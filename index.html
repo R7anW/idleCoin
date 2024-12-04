@@ -18,15 +18,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            zoom: 1.25; /* Increase everything by 125% */
-            min-height: 100vh; /* Ensure body takes full height */
+            height: 100vh; /* Ensure the body fills the full height of the viewport */
+            justify-content: space-between; /* Space the content and push the buttons to the bottom */
         }
 
         h1 {
-            font-size: 2.5rem; /* Adjusted size to fit */
+            font-size: 2.5rem;
             color: #fff;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
 
         /* Total Cash Display */
@@ -36,7 +36,7 @@
             border-radius: 12px;
             padding: 12px 25px;
             font-size: 1.5rem;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
         }
 
@@ -47,7 +47,9 @@
             gap: 30px;
             padding: 12px;
             flex-wrap: wrap;
-            margin-bottom: 120px; /* Reduced margin for fitting buttons */
+            margin-bottom: 40px; /* Reduced margin for better fit with buttons */
+            flex-grow: 1; /* Allow this container to grow and fill available space */
+            overflow-y: auto; /* Prevent overflow of coins container */
         }
 
         /* Coin Stats Box */
@@ -72,7 +74,7 @@
 
         /* Coin Styles */
         .coin {
-            width: 80px; /* Reduced size for better fit */
+            width: 80px;
             height: 80px;
             border-radius: 50%;
             border: 5px solid orange;
@@ -85,7 +87,7 @@
         }
 
         .coin-text {
-            font-size: 1.2rem; /* Adjusted for fit */
+            font-size: 1.2rem;
             font-weight: bold;
             color: black;
             -webkit-text-stroke: 1px #949494;
@@ -93,8 +95,8 @@
 
         /* Flip Button and Add Coin Button */
         .flip-button, .add-coin-button {
-            padding: 12px 24px; /* Reduced padding for fit */
-            font-size: 1.25rem; /* Adjusted font size */
+            padding: 12px 24px;
+            font-size: 1.25rem;
             color: white;
             border: none;
             border-radius: 12px;
@@ -131,8 +133,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-top: auto;
-            padding-bottom: 15px; /* Adjusted for better fitting */
+            margin-bottom: 30px; /* Adjusted spacing from the bottom */
         }
 
     </style>
