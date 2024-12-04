@@ -18,38 +18,33 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh; /* Ensure the body fills the full height of the viewport */
-            justify-content: space-between; /* Space the content and push the buttons to the bottom */
         }
 
         h1 {
-            font-size: 3.125rem; /* 125% of previous size (2.5rem) */
+            font-size: 2.5rem;
             color: #fff;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-            margin-bottom: 18px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
         }
 
         /* Total Cash Display */
         .cash-display {
             background: #333;
             color: #fff;
-            border-radius: 15px; /* Increased border-radius for scaling */
-            padding: 15px 30px; /* Increased padding */
-            font-size: 1.875rem; /* 125% of previous size (1.5rem) */
-            margin-bottom: 18px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 15px 25px;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         /* Coins Container */
         #coins-container {
             display: flex;
             justify-content: center;
-            gap: 37.5px; /* Increased gap for scaling */
-            padding: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 50px; /* Increased margin for scaling */
-            flex-grow: 1; /* Allow this container to grow and fill available space */
-            overflow-y: auto;
+            gap: 40px; /* Adjust spacing between coins */
+            padding: 10px;
+            flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
         }
 
         /* Coin Stats Box */
@@ -57,57 +52,54 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px; /* Increased gap for scaling */
+            gap: 10px;
         }
 
         .coin-stats {
             background: #444;
             border: 2px solid #555;
-            border-radius: 15px; /* Increased border-radius for scaling */
-            padding: 15px;
+            border-radius: 10px;
+            padding: 10px;
             width: auto;
             text-align: center;
             color: #bbb;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-            font-size: 1.25rem; /* 125% of previous size (1rem) */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            font-size: 1rem;
         }
 
         /* Coin Styles */
         .coin {
-            width: 100px; /* Increased size */
-            height: 100px; /* Increased size */
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            border: 6px solid orange; /* Increased border */
-            background: radial-gradient(circle, #ffeb99, #ffd700);
+            border: 4px solid orange; /* Orange border */
+            background: radial-gradient(circle, #ffeb99, #ffd700); /* Gradient from dark yellow to light yellow */
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 15px auto;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            margin: 10px auto; /* Center the coin */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
         }
 
         .coin-text {
-            font-size: 1.5rem; /* Increased font size */
+            font-size: 1.2rem;
             font-weight: bold;
-            color: black;
-            -webkit-text-stroke: 1.25px #949494; /* Slightly increased text stroke */
+            color: black; /* Text color */
+            -webkit-text-stroke: 1px #949494; /* Text stroke for modern browsers */
         }
 
-        /* Flip Button and Add Coin Button */
-        .flip-button, .add-coin-button {
-            padding: 15px 30px; /* Increased padding */
-            font-size: 1.5rem; /* 125% of previous size (1.25rem) */
-            color: white;
-            border: none;
-            border-radius: 15px; /* Increased border-radius */
-            cursor: pointer;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-            margin-top: 18px; /* Increased margin for scaling */
-        }
 
         /* Flip Button */
         .flip-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            color: white;
             background: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         .flip-button:hover {
@@ -120,22 +112,20 @@
 
         /* Add Coin Button */
         .add-coin-button {
-            background: #5a6268;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background: #6c757d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
 
         .add-coin-button:hover {
-            background: #454d55;
+            background: #5a6268;
         }
-
-        /* Button Centering */
-        .button-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 40px; /* Increased spacing from the bottom */
-        }
-
     </style>
 </head>
 <body>
@@ -144,11 +134,8 @@
     <div id="coins-container">
         <!-- Coins will be dynamically created here -->
     </div>
-
-    <div class="button-container">
-        <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
-        <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
-    </div>
+    <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
+    <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
 
     <script>
         let totalCash = 0;
@@ -203,13 +190,28 @@
 
             canFlip = false;
 
+            // Flip the coins and assign earnings
             coins.forEach(coin => {
                 const [min, max] = coin.range.split(' - ').map(Number);
                 coin.earnings = Math.floor(Math.random() * (max - min + 1)) + min;
             });
 
+            // Count occurrences of each earnings value
+            const earningsCount = {};
             coins.forEach(coin => {
-                totalCash += coin.earnings;
+                earningsCount[coin.earnings] = (earningsCount[coin.earnings] || 0) + 1;
+            });
+
+            // Calculate total earnings with multipliers
+            let earningsMultiplier = 0;
+            coins.forEach(coin => {
+                if (earningsCount[coin.earnings] > 1) {
+                    earningsMultiplier = earningsCount[coin.earnings];
+                    totalCash += coin.earnings * earningsMultiplier;
+                    earningsCount[coin.earnings] = 0; // Prevent double counting
+                } else {
+                    totalCash += coin.earnings;
+                }
             });
 
             updateGUI();
