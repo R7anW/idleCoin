@@ -84,10 +84,15 @@
         .coin-text {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #757474;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
-            border: 2px solid black;
+            color: #fff; /* Text color */
+            text-shadow: 
+                -2px -2px 0 #000, /* Top-left shadow */
+                2px -2px 0 #000,  /* Top-right shadow */
+                -2px 2px 0 #000,  /* Bottom-left shadow */
+                2px 2px 0 #000;   /* Bottom-right shadow */
+            -webkit-text-stroke: 2px black; /* Text stroke for modern browsers */
         }
+
 
         /* Flip Button */
         .flip-button {
