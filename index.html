@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Idle Coin-Flip</title>
     <style>
-        /* Prevent vertical scrolling */
+        /* Prevent scrolling in both directions */
         body, html {
-            overflow-y: hidden; /* Disable vertical scrolling */
-            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Disable both vertical and horizontal scrolling */
+            width: 100%; /* Ensure the body takes the full width of the viewport */
+            height: 100%; /* Ensure the body takes the full height of the viewport */
         }
 
         /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
             background: linear-gradient(120deg, #2b5876, #4e4376);
             background-attachment: fixed;
             background-size: cover;
@@ -28,6 +29,7 @@
             transform-origin: top center;
             height: 100%;
             position: relative;
+            width: 100%;
         }
 
         h1 {
@@ -55,6 +57,8 @@
             gap: 52px;
             padding: 13px;
             flex-wrap: wrap;
+            width: 100%;
+            box-sizing: border-box; /* Prevent overflow due to padding */
         }
 
         /* Coin Stats Box */
