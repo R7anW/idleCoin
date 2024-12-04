@@ -42,26 +42,29 @@
         #coins-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px; /* Adjust spacing between coins */
             padding: 10px;
             flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
         }
 
-        /* Dark Box for Each Coin */
+        /* Coin Stats Box */
         .coin-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .coin-stats {
             background: #444;
             border: 2px solid #555;
             border-radius: 10px;
             padding: 10px;
-            width: 120px; /* Fixed width for consistent layout */
+            width: auto;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-        }
-
-        .coin-stats {
-            font-size: 1rem;
-            margin-bottom: 10px;
             color: #bbb;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            font-size: 1rem;
         }
 
         /* Coin Styles */
@@ -73,7 +76,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px auto; /* Center coin below the box */
+            margin: 10px auto; /* Center the coin */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
         }
 
@@ -173,8 +176,8 @@
                 coinDiv.innerHTML = `<div class="coin-text">${coin.earnings || coin.range}</div>`; // Show earnings or range
 
                 coinWrapper.appendChild(coinStats);
+                coinWrapper.appendChild(coinDiv);
                 coinsContainer.appendChild(coinWrapper);
-                coinsContainer.appendChild(coinDiv);
             });
 
             totalCashDisplay.innerText = totalCash.toFixed(2);
