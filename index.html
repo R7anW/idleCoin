@@ -11,11 +11,16 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(120deg, #84fab0, #8fd3f4, #84fab0);
-            background-attachment: fixed; /* Keeps background fixed during scrolling */
+            background-attachment: fixed;
             background-size: cover;
             color: #333;
             text-align: center;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            overflow: hidden; /* Prevent scrolling */
         }
 
         h1 {
@@ -34,9 +39,6 @@
             font-size: 1.5rem;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         /* Coins Container */
@@ -44,11 +46,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-wrap: nowrap;
             gap: 20px;
-            padding: 20px;
             overflow-x: auto; /* Allow horizontal scrolling if coins overflow */
-            margin-bottom: 60px;
+            max-width: 90%;
+            padding: 10px;
         }
 
         .coin-wrapper {
@@ -82,10 +83,7 @@
 
         /* Flip Button */
         .flip-button {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            margin-top: 20px;
             padding: 15px 30px;
             font-size: 1.2rem;
             color: white;
@@ -94,7 +92,6 @@
             border-radius: 8px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            z-index: 10;
         }
 
         .flip-button:hover {
@@ -102,24 +99,12 @@
         }
 
         .flip-button:active {
-            transform: translateX(-50%) scale(0.95);
-        }
-
-        /* Cooldown Loading Bar */
-        .loading-bar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 5px;
-            width: 100%;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.6));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 3s linear;
+            transform: scale(0.95);
         }
 
         /* Add Coin Button */
         .add-coin-button {
+            margin-top: 10px;
             padding: 10px 20px;
             font-size: 1rem;
             color: white;
@@ -128,8 +113,6 @@
             border-radius: 5px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            transition: background 0.3s ease, transform 0.2s ease;
-            margin-top: 20px;
         }
 
         .add-coin-button:hover {
@@ -143,10 +126,7 @@
     <div id="coins-container">
         <!-- Coins will be dynamically created here -->
     </div>
-    <button class="flip-button" id="flip-button" onclick="flipCoins()">
-        Flip Coins
-        <div class="loading-bar" id="loading-bar"></div>
-    </button>
+    <button class="flip-button" id="flip-button" onclick="flipCoins()">Flip Coins</button>
     <button class="add-coin-button" id="add-coin-button" onclick="addCoin()">Add Coin (£50)</button>
 
     <script>
@@ -213,14 +193,7 @@
 
             updateGUI();
 
-            const loadingBar = document.getElementById('loading-bar');
-            loadingBar.style.transition = 'transform 3s linear';
-            loadingBar.style.transform = 'scaleX(1)';
-            setTimeout(() => {
-                canFlip = true;
-                loadingBar.style.transition = 'none';
-                loadingBar.style.transform = 'scaleX(0)';
-            }, 3000);
+            setTimeout(() => (canFlip = true), 3000);
         }
 
         function addCoin() {
