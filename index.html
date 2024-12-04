@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Idle Coin-Flip</title>
     <style>
+        /* Prevent horizontal scrolling */
+        body, html {
+            overflow-x: hidden;
+        }
+
         /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
@@ -203,16 +208,10 @@
                 earningsCount[coin.earnings] = (earningsCount[coin.earnings] || 0) + 1;
             });
 
-            // Calculate total earnings with multipliers
-            let earningsMultiplier = 0;
+            // Apply the multiplier based on the occurrences of the same earnings
             coins.forEach(coin => {
-                if (earningsCount[coin.earnings] > 1) {
-                    earningsMultiplier = earningsCount[coin.earnings];
-                    totalCash += coin.earnings * earningsMultiplier;
-                    earningsCount[coin.earnings] = 0; // Prevent double counting
-                } else {
-                    totalCash += coin.earnings;
-                }
+                const multiplier = earningsCount[coin.earnings];
+                totalCash += coin.earnings * multiplier;
             });
 
             updateGUI();
