@@ -20,7 +20,6 @@
             align-items: center;
             zoom: 1.25; /* Increase everything by 125% */
             min-height: 100vh; /* Ensure body takes full height */
-            position: relative; /* Required for positioning buttons */
         }
 
         h1 {
@@ -48,7 +47,7 @@
             gap: 50px; /* Increased gap between coins */
             padding: 12.5px;
             flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
-            margin-bottom: 150px; /* Space for the buttons at the bottom */
+            margin-bottom: 200px; /* Ensure space for buttons at the bottom */
         }
 
         /* Coin Stats Box */
@@ -94,9 +93,6 @@
 
         /* Flip Button */
         .flip-button, .add-coin-button {
-            position: absolute;
-            bottom: 20px; /* Distance from the bottom */
-            margin-top: 25px;
             padding: 18.75px 37.5px;
             font-size: 1.5rem; /* 125% of original 1.2rem */
             color: white;
@@ -106,17 +102,23 @@
             cursor: pointer;
             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
             z-index: 10; /* Ensure buttons are on top */
+            width: 60%; /* Make buttons 60% of the page width */
+            margin: 10px 0;
         }
 
+        /* Button Alignment */
         .flip-button {
+            position: fixed;
+            bottom: 20px; /* Distance from the bottom */
             left: 50%;
-            transform: translateX(-50%); /* Center flip button */
+            transform: translateX(-50%);
         }
 
         .add-coin-button {
+            position: fixed;
+            bottom: 90px; /* Position add-coin button above flip button */
             left: 50%;
             transform: translateX(-50%);
-            bottom: 80px; /* Position add-coin button above flip button */
         }
 
         .flip-button:hover {
