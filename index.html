@@ -23,10 +23,10 @@
         }
 
         h1 {
-            font-size: 3.125rem; /* 125% of original 2.5rem */
+            font-size: 2.5rem; /* Adjusted size to fit */
             color: #fff;
-            text-shadow: 2.5px 2.5px 5px rgba(0, 0, 0, 0.4);
-            margin-bottom: 25px; /* Increased space for readability */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            margin-bottom: 25px;
         }
 
         /* Total Cash Display */
@@ -34,9 +34,9 @@
             background: #333;
             color: #fff;
             border-radius: 12px;
-            padding: 18.75px 31.25px;
-            font-size: 1.875rem; /* 125% of original 1.5rem */
-            margin-bottom: 37.5px; /* Increased margin for spacing */
+            padding: 12px 25px;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
         }
 
@@ -44,10 +44,10 @@
         #coins-container {
             display: flex;
             justify-content: center;
-            gap: 50px; /* Increased gap between coins */
-            padding: 12.5px;
-            flex-wrap: wrap; /* Allow coins to wrap in smaller screens */
-            margin-bottom: 150px; /* Ensure space for buttons at the bottom */
+            gap: 30px;
+            padding: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 120px; /* Reduced margin for fitting buttons */
         }
 
         /* Coin Stats Box */
@@ -55,53 +55,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12.5px; /* Increased gap for better spacing */
+            gap: 12px;
         }
 
         .coin-stats {
             background: #444;
-            border: 2.5px solid #555; /* Increased border width */
-            border-radius: 12.5px;
-            padding: 12.5px;
+            border: 2px solid #555;
+            border-radius: 12px;
+            padding: 12px;
             width: auto;
             text-align: center;
             color: #bbb;
             box-shadow: 0 5px 14px rgba(0, 0, 0, 0.6);
-            font-size: 1.25rem; /* 125% of original 1rem */
+            font-size: 1.25rem;
         }
 
         /* Coin Styles */
         .coin {
-            width: 100px; /* 125% of original 80px */
-            height: 100px; /* 125% of original 80px */
+            width: 80px; /* Reduced size for better fit */
+            height: 80px;
             border-radius: 50%;
-            border: 5px solid orange; /* Increased border thickness */
+            border: 5px solid orange;
             background: radial-gradient(circle, #ffeb99, #ffd700);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 12.5px auto; /* Increased margin for spacing */
+            margin: 12px auto;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
         }
 
         .coin-text {
-            font-size: 1.5rem; /* 125% of original 1.2rem */
+            font-size: 1.2rem; /* Adjusted for fit */
             font-weight: bold;
             color: black;
-            -webkit-text-stroke: 1.25px #949494; /* Increased stroke width */
+            -webkit-text-stroke: 1px #949494;
         }
 
         /* Flip Button and Add Coin Button */
         .flip-button, .add-coin-button {
-            padding: 18.75px 37.5px;
-            font-size: 1.5rem; /* 125% of original 1.2rem */
+            padding: 12px 24px; /* Reduced padding for fit */
+            font-size: 1.25rem; /* Adjusted font size */
             color: white;
             border: none;
-            border-radius: 12px; /* Original round shape */
+            border-radius: 12px;
             cursor: pointer;
             box-shadow: 0 5px 12px rgba(0, 0, 0, 0.5);
-            z-index: 10; /* Ensure buttons are on top */
-            margin-top: 25px;
+            margin-top: 15px;
         }
 
         /* Flip Button */
@@ -133,7 +132,7 @@
             justify-content: center;
             align-items: center;
             margin-top: auto;
-            padding-bottom: 25px; /* Ensure space from the bottom */
+            padding-bottom: 15px; /* Adjusted for better fitting */
         }
 
     </style>
@@ -235,4 +234,3 @@
     </script>
 </body>
 </html>
-
